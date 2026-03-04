@@ -1,23 +1,26 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import axios from "axios";
 
-
 function App() {
-  const [actor, setactor] = useState("");
+  const [actors, setActors] = useState([]); 
 
-  function fetchActor(){
+  
+  const fetchActors = () => {
     axios.get("https://lanciweb.github.io/demo/api/actors/")
-    .then((res)=>setactor(res.id))
-    .catch(console.error(error));
-    
-  }
-  useEffect (fetchActor, []);
+      .then(response => {
+        setActors(response.data);
+      })
+      .catch(error => console.error("Errore nel recupero dati:", error));
+  };
+
+  useEffect(fetchActors, []);
 
   return (
     <>
-      
+      <h1>Lista Attori</h1>
+    
     </>
-  )
+  );
 }
 
-export default App
+export default App;
